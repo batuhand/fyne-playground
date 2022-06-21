@@ -22,13 +22,14 @@ func homeScreen() fyne.CanvasObject {
 		widget.NewLabel(""), // balance the header on the tutorial screen we leave blank on this content
 	))
 }
-func scanTap(win fyne.Window, progress fyne.Widget) {
+func scanTap(win fyne.Window, progress *widget.ProgressBar) {
 	fmt.Println("Scan started")
 	dialog.ShowInformation("Loading", "Scan started", win)
 	go func() {
 		for i := 0.0; i <= 1.0; i += 0.1 {
 			time.Sleep(time.Millisecond * 250)
 			progress.SetValue(i)
+
 		}
 	}()
 
