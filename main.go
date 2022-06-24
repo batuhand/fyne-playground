@@ -39,36 +39,52 @@ func scanTap(win fyne.Window, progress *widget.ProgressBar) {
 }
 
 func attackerScreen(win fyne.Window) fyne.CanvasObject {
-	btn := widget.NewButton("Open .txt files", func() {
-		// Using dialogs to open files
-		// first argument func(fyne.URIReadCloser, error)
-		// 2nd is parent window in our case "w"
-		// r for reader
-		// _ is ignore error
+	progress := widget.NewProgressBar()
+	attackButton1 := widget.NewButton("Open .txt files", func() {
 		file_Dialog := dialog.NewFileOpen(
 			func(r fyne.URIReadCloser, _ error) {
-				// read files
-
 				data, _ := ioutil.ReadAll(r)
-				//print(string(data))
 				testlist := strings.Split(string(data), "\n")
-				//print(testlist)
 				for i := 0; i < len(testlist); i++ {
 					print(testlist[i])
 				}
-
 			}, win)
-		// fiter to open .txt files only
-		// array/slice of strings/extensions
 		file_Dialog.SetFilter(
 			storage.NewExtensionFileFilter([]string{".txt"}))
 		file_Dialog.Show()
-		// Show file selection dialog.
 	})
-
+	attackButton2 := widget.NewButton("Open .txt files", func() {
+		file_Dialog := dialog.NewFileOpen(
+			func(r fyne.URIReadCloser, _ error) {
+				data, _ := ioutil.ReadAll(r)
+				testlist := strings.Split(string(data), "\n")
+				for i := 0; i < len(testlist); i++ {
+					print(testlist[i])
+				}
+			}, win)
+		file_Dialog.SetFilter(
+			storage.NewExtensionFileFilter([]string{".txt"}))
+		file_Dialog.Show()
+	})
+	attackButton3 := widget.NewButton("Open .txt files", func() {
+		file_Dialog := dialog.NewFileOpen(
+			func(r fyne.URIReadCloser, _ error) {
+				data, _ := ioutil.ReadAll(r)
+				testlist := strings.Split(string(data), "\n")
+				for i := 0; i < len(testlist); i++ {
+					print(testlist[i])
+				}
+			}, win)
+		file_Dialog.SetFilter(
+			storage.NewExtensionFileFilter([]string{".txt"}))
+		file_Dialog.Show()
+	})
 	attackScreen := container.NewCenter(container.NewVBox(
 		widget.NewLabel("Attacker"),
-		btn,
+		container.NewHBox(
+			attackButton1, attackButton2, attackButton3,
+		),
+		progress,
 	))
 
 	return attackScreen
